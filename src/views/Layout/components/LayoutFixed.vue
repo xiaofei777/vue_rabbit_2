@@ -1,9 +1,13 @@
 <script setup>
 // vueUse
 import { useScroll } from '@vueuse/core'
+import { useCategoryStore } from '@/stores/category.js';
 const { y } = useScroll(window)
-</script>
 
+//使用Pinia中的数据
+const categoryStore = useCategoryStore();
+
+</script>
 
 <template>
   <div class="app-header-sticky show">
