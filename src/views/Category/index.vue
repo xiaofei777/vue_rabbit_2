@@ -4,18 +4,27 @@ import { useRoute } from "vue-router";
 import { getTopCategoryAPI } from "@/apis/category";
 import { getBannerAPI } from '@/apis/home'
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
+import { onBeforeRouteUpdate } from "vue-router";
 
+
+//获取数据  
 const categoryData = ref({});
 // 这里可以获取路由的参数，这里还没引入，注意一下
 const route = useRoute();
-const getCategory = async () => {
+const getCategory = async (id = route.params.id) => {
   // 如何在setup中获取路由参数 useRoute() -> route 等价于this.$route
-  const res = await getTopCategoryAPI(route.params.id);
+  const res = await getTopCategoryAPI(id);
   categoryData.value = res.result;
 };
 onMounted(() => {
   console.log("这里是category");
   getCategory();
+});
+
+//路由参数重新变化的时候，可以把分类的数据接口重新发送
+onBeforeRouteUpdate((to) => {
+  console.log("hahha路由变化了");
+  getCategory(to.params.id);
 });
 
 // 获取banner
