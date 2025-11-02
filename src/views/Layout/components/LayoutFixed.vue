@@ -1,56 +1,19 @@
 <script setup>
+import LayoutHeaderUl from './LayoutHeaderUl.vue'
 // vueUse
 import { useScroll } from '@vueuse/core'
-import { useCategoryStore } from '@/stores/category.js';
 const { y } = useScroll(window)
 
-//使用Pinia中的数据
-const categoryStore = useCategoryStore();
 
 </script>
 
 <template>
-  <div class="app-header-sticky show">
-    <div class="app-header-sticky" :class="{ show: y > 78 }"></div>
+  <div class="app-header-sticky" :class="{ show: y > 78 }">
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
-      <ul class="app-header-nav ">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
-        </li>
-        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink >
-        </li>
-        <!-- <li>
-          <RouterLink to="/">居家</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">美食</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">服饰</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">母婴</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">个护</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">数码</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">运动</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">杂项</RouterLink>
-        </li> -->
-      </ul>
 
+      <LayoutHeaderUl />
       <div class="right">
         <RouterLink to="/">品牌</RouterLink>
         <RouterLink to="/">专题</RouterLink>
@@ -73,7 +36,7 @@ const categoryStore = useCategoryStore();
   // 此处为关键样式!!!
   // 状态一：往上平移自身高度 + 完全透明
   transform: translateY(-100%);
-  opacity: 0;//透明度
+  opacity: 0;
 
   // 状态二：移除平移 + 完全不透明
   &.show {
@@ -110,37 +73,6 @@ const categoryStore = useCategoryStore();
       &:hover {
         color: $xtxColor;
       }
-    }
-  }
-}
-
-.app-header-nav {
-  width: 820px;
-  display: flex;
-  padding-left: 40px;
-  position: relative;
-  z-index: 998;
-
-  li {
-    margin-right: 40px;
-    width: 38px;
-    text-align: center;
-
-    a {
-      font-size: 16px;
-      line-height: 32px;
-      height: 32px;
-      display: inline-block;
-
-      &:hover {
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
-      }
-    }
-
-    .active {
-      color: $xtxColor;
-      border-bottom: 1px solid $xtxColor;
     }
   }
 }
