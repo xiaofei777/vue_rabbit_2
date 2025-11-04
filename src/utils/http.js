@@ -1,5 +1,6 @@
 //axios基础的封装
-import axios from 'axios';
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 // 创建axios实例
 const httpInstance = axios.create({
@@ -15,7 +16,12 @@ httpInstance.interceptors.request.use(config => {
 
 //axios响应拦截器
 httpInstance.interceptors.response.use(res => res.data, e => {
-  return Promise.reject(e)
+  //统一错误提示
+    ElMessage({
+      type: "warning",
+      message: e.response.data.message,
+    });
+    return Promise.reject(e);
 })
 
 export default httpInstance;
