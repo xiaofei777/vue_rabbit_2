@@ -23,12 +23,38 @@ const rules = {
   ],
   agree: [
     {
-      validator: (rule, val, callback) => {
-        return val ? callback() : new Error('请先同意协议')
+      validator: (rule, value, callback) => {
+        console.log(value)
+        // 自定义校验逻辑
+        // 勾选就通过 不勾选就不通过
+        if (value) {
+          callback()
+        } else {
+          callback(new Error('请勾选协议'))
+        }
       }
     }
   ]
 }
+
+//3.获取form实例做统一校验
+const formRef = ref(null)
+const doLogin = () => {
+  formRef.value.validate(valid => {
+    //valid:所有表单都通过校验，才为true
+    console.log(valid)
+    //以valid作为判断条件，如果通过校验才执行登录逻辑
+    if(valid){
+      //TODO 登录请求
+
+    }
+  })
+}
+
+
+// 1. 用户名和密码 只需要通过简单的配置（看文档的方式 - 复杂功能通过多个不同组件拆解）
+// 2. 同意协议  自定义规则  validator:(rule,value,callback)=>{}
+// 3. 统一校验  通过调用form实例的方法 validate -> true
 
 </script>
 
