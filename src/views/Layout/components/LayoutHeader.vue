@@ -1,34 +1,24 @@
 <script setup>
-// 引入api
-import { getCategoryAPI } from "@/apis/layout";
-import { onMounted, ref } from "vue";
-import { useCategoryStore } from '@/stores/category.js';
-
-const categoryStore = useCategoryStore();
-
+import LayoutHeaderUl from './LayoutHeaderUl.vue'
+import HeaderCart from './HeaderCart.vue'
 </script>
 
 <template>
-  <header class="app-header">
+  <header class='app-header'>
     <div class="container">
       <h1 class="logo">
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
-      <ul class="app-header-nav">
-        <!-- 遍历list中的数据，渲染列表 -->
-        <li v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink active-class="active" :to="`/category/${item.id}`">
-            {{ item.name }}
-          </RouterLink>
-        </li>
-      </ul>
+
+      <LayoutHeaderUl />
       <div class="search">
         <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="搜一搜" />
+        <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
+      <HeaderCart />
     </div>
-  </header>
+</header>
 </template>
 
 
